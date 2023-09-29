@@ -9,9 +9,16 @@ print(f'The file itself is: {args[0]}')
 
 # Here we use `argparse` to get argument from stdin
 import argparse
-parser = argparse.ArgumentParser()
-parser.add_argument("-o", "--output", help="Show Output")
+
+parser = argparse.ArgumentParser(description="To sum up 2 numbers")
+parser.add_argument("-v", "--verbose", help="increase output verbosity",
+                    action="store_true")
+parser.add_argument("first", help="The first number",
+                    type=int)
+parser.add_argument("second", help="The second number",
+                    type=int)
 
 args = parser.parse_args()
-if args.output:
-    print(f"this is from args 'output': {args.output}")
+if args.verbose:
+    print(f"this is from args: {args.first} + {args.second}")
+print(args.first + args.second)

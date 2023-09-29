@@ -14,9 +14,9 @@ Organization: program comments should be put in README rather than be put in the
 ## Dealing with command line arguments
 
 - [ ] on research how to get command line arguments from a user
-- [x] with `sys.argv`
-- [x] with `argparse`
-- [ ] with `click`
+    - [x] with `sys.argv`
+    - [x] with `argparse`
+    - [ ] with `click`
 
 ## cat
 
