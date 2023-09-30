@@ -9,7 +9,7 @@ This is a long-running project that I will go to (re)implement some UNIX command
 
 ## Quick hacks
 
-Organization: program comments should be put in README rather than be put in the python script.
+Organization: program comments should be put in README rather than be put in the python script. (a.k.a. don't make dead code nor unintentional comments in the script.)
 
 ## Dealing with command line arguments
 
@@ -17,6 +17,22 @@ Organization: program comments should be put in README rather than be put in the
     - [x] with `sys.argv`
     - [x] with `argparse`
     - [ ] with `click`
+
+Some basics functions which all CLIs have are:
+- An argument. (positional argument)
+- An option, which is an optional parameter
+- A flag, this is a special option which enables or disables a certain function. One of the most common flags is –help.
+
+reference:
+- Google: sys.argv -> [How to use sys.argv in Python - GeeksforGeeks](https://www.geeksforgeeks.org/how-to-use-sys-argv-in-python/) for study on sys.argv, argparse, click
+- Google: argparse -> https://docs.python.org/3/library/argparse.html
+
+### The concepts of click
+
+click uses decorator to wrap function to a Command [^click]
+=> I write function 1st, then make it into Command.
+
+[^click]: Python Command Line Tools by Noah Gift 
 
 ## cat
 

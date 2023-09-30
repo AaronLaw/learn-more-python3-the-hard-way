@@ -25,7 +25,22 @@ def with_argparse():
         print(f"this is from args: {args.first} + {args.second}")
     print(args.first + args.second)
 
+# Here we use `click` to get argument from stdin
+# click uses decorator to wrap function to a Command <- Python Command Line Tools by Noah Gift 
+import click
+
+@click.command()
+# @click.option("--add", help="add 2 numbers.")
+@click.option("-v", "--verbose", is_flag=True, help="increase output verbosity")
+@click.argument("first", type=click.INT)
+@click.argument("second", type=click.INT)
+def add(first, second, verbose=False):
+    if verbose:
+        click.echo(f"this is from args: {first} + {second}.")
+    click.echo(first + second)
+
 
 if __name__=="__main__":
-    with_argv()
-    with_argparse()
+    # with_argv()
+    # with_argparse()
+    add()
