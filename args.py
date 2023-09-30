@@ -30,40 +30,53 @@ def with_argparse() -> None:
 import click
 
 @click.command()
-# @click.option("--add", help="add 2 numbers.")
-@click.argument("first", type=click.INT)
-@click.argument("second", type=click.INT)
+@click.argument('numbers', type=int, nargs=-1) # *args
 @click.option("-v", "--verbose", is_flag=True, help="increase output verbosity")
 @click.option("-m",  "--mode", required=True, help="the calculation mode: add | sub | mul | div")
-def calculate(first: int, second: int, mode: str, verbose: bool=False) -> None:
-    """An example cli created with Click to add 2 numbers."""
+# def calculate(first: int, second: int, mode: str, verbose: bool=False) -> None:
+def calculate(numbers: tuple[int], mode: str, verbose: bool=False) -> None:
+    """An example cli created with Click to + | - | * | / 2 or more numbers."""
     if verbose:
-        click.echo(f"this is from args: {first} {mode} {second}.")
+        click.echo(f"this is from args: {mode} {numbers}.")
     
     match mode:
         case "add":
-            add(first, second)
+            add(numbers)
         case "sub":
-            sub(first, second)
+            sub(numbers)
         case "mul":
-            mul(first, second)
+            mul(numbers)
         case "div":
-            div(first, second)
+            div(numbers)
         case _:
             click.echo(f"please run the program againg with a calculation mode.")
 
-def add(first: int, second: int) -> None:
-    click.echo(first + second)
+def add(numbers: tuple[int]) -> None:
+    sum = 0
+    for num in numbers:
+        sum += num
+    click.echo(sum)
 
-def sub(first: int, second: int) -> None:
-    click.echo(first - second)
+def sub(numbers: tuple[int]) -> None:
+    result = numbers[0]
+    for num in numbers:
+        result -= num
+    result += numbers[0]
+    click.echo(result)
 
-def mul(first: int, second: int) -> None:
-    click.echo(first * second)
+def mul(numbers: tuple[int]) -> None:
+    result = 1
+    for num in numbers:
+        result *= num
+    click.echo(result)
 
-def div(first: int, second: int) -> None:
+def div(numbers: tuple[int]) -> None:
     try:
-        click.echo(first / second)
+        result = numbers[0]
+        for num in numbers:
+            result /= num
+        result *= numbers[0]
+        click.echo(result)
     except ZeroDivisionError:
         click.echo(f"error: cannot /0")
 

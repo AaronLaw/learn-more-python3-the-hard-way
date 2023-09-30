@@ -18,6 +18,7 @@ Organization: program comments should be put in README rather than be put in the
     - [x] with `argparse`
     - [x] with `click`
         - [x] try more options with `click` 
+    - [x] extend the `add(a, b)` to `add(a, b, ..., n)` (a.k.a. passing `*args` to function)
 
 Some basics functions which all CLIs have are:
 - An argument. (positional argument)
@@ -25,9 +26,14 @@ Some basics functions which all CLIs have are:
 - A flag, this is a special option which enables or disables a certain function. One of the most common flags is –help.
 
 reference:
-- Google: sys.argv -> [How to use sys.argv in Python - GeeksforGeeks](https://www.geeksforgeeks.org/how-to-use-sys-argv-in-python/) for study on sys.argv, argparse, click
-- Google: argparse -> https://docs.python.org/3/library/argparse.html
-- Google: python click program description -> [The Definitive Guide to Python Click](https://www.assemblyai.com/blog/the-definitive-guide-to-python-click/#:~:text=Click%2C%20or%20“Command%20Line%20Interface,loading%20of%20subcommands%20at%20runtime.)
+- how to work with sys.argv?
+    - Google: sys.argv -> [How to use sys.argv in Python - GeeksforGeeks](https://www.geeksforgeeks.org/how-to-use-sys-argv-in-python/) for study on sys.argv, argparse, click
+- how to work with argparse?
+    - Google: argparse -> https://docs.python.org/3/library/argparse.html
+- how to add program description with click? (e.g. "this program adds 2 given numbers...")
+    - Google: python click program description -> [The Definitive Guide to Python Click](https://www.assemblyai.com/blog/the-definitive-guide-to-python-click/#:~:text=Click%2C%20or%20“Command%20Line%20Interface,loading%20of%20subcommands%20at%20runtime.)
+- how to work with `*args` with Click?
+    - Google: click *args -> [Variadic Arguments](https://click.palletsprojects.com/en/8.1.x/arguments/)
 
 ### The concepts of click
 
