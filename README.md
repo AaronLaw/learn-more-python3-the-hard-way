@@ -26,6 +26,7 @@ Some basics functions which all CLIs have are:
 reference:
 - Google: sys.argv -> [How to use sys.argv in Python - GeeksforGeeks](https://www.geeksforgeeks.org/how-to-use-sys-argv-in-python/) for study on sys.argv, argparse, click
 - Google: argparse -> https://docs.python.org/3/library/argparse.html
+- Google: python click program description -> [The Definitive Guide to Python Click](https://www.assemblyai.com/blog/the-definitive-guide-to-python-click/#:~:text=Click%2C%20or%20“Command%20Line%20Interface,loading%20of%20subcommands%20at%20runtime.)
 
 ### The concepts of click
 

@@ -35,6 +35,7 @@ import click
 @click.argument("first", type=click.INT)
 @click.argument("second", type=click.INT)
 def add(first, second, verbose=False):
+    """An example cli created with Click to add 2 numbers."""
     if verbose:
         click.echo(f"this is from args: {first} + {second}.")
     click.echo(first + second)
