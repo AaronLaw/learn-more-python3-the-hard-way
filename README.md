@@ -36,6 +36,19 @@ click uses decorator to wrap function to a Command [^click]
 
 [^click]: Python Command Line Tools by Noah Gift 
 
+### Reflection
+
+Finding out what blocks me to work on:
+- At first, I am **lazy to figure out** / to study how argparse works.
+- When I try to make a MVP with Click, the script doesn't work at first. -> I am afraid of reading onlarge pages of documentation of any 3rd party projects.
+    - The solution is quite simple: The concept behind Click is turing python function into a Command with the `@click` decorator.
+    - the problem of mine is: I have an option `--verbose` but I haven't notice I have to put it in function signature at 1st because I have no idea the concept behind Click is turning python function into a Command (it is because **I haven't read through** Click's documentation):
+        - `def add(first, second)` => `def add(first, second, verbose=False)` 
+
+
 ## cat
 
 
+### Reflection
+
+Finding out what blocks me to work on:
