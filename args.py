@@ -31,17 +31,43 @@ import click
 
 @click.command()
 # @click.option("--add", help="add 2 numbers.")
-@click.option("-v", "--verbose", is_flag=True, help="increase output verbosity")
 @click.argument("first", type=click.INT)
 @click.argument("second", type=click.INT)
-def add(first, second, verbose=False):
+@click.option("-v", "--verbose", is_flag=True, help="increase output verbosity")
+@click.option("-m",  "--mode", required=True, help="the calculation mode: add | sub | mul | div")
+def calculate(first, second, mode, verbose=False):
     """An example cli created with Click to add 2 numbers."""
     if verbose:
-        click.echo(f"this is from args: {first} + {second}.")
+        click.echo(f"this is from args: {first} {mode} {second}.")
+    
+    match mode:
+        case "add":
+            add(first, second)
+        case "sub":
+            sub(first, second)
+        case "mul":
+            mul(first, second)
+        case "div":
+            div(first, second)
+        case _:
+            click.echo(f"please run the program againg with a calculation mode.")
+
+def add(first, second):
     click.echo(first + second)
 
+def sub(first, second):
+    click.echo(first - second)
+
+def mul(first, second):
+    click.echo(first * second)
+
+def div(first, second):
+    try:
+        click.echo(first / second)
+    except ZeroDivisionError:
+        click.echo(f"error: cannot /0")
 
 if __name__=="__main__":
     # with_argv()
     # with_argparse()
-    add()
+    calculate()

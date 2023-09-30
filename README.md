@@ -13,10 +13,11 @@ Organization: program comments should be put in README rather than be put in the
 
 ## Dealing with command line arguments
 
-- [ ] on research how to get command line arguments from a user
+- [x] on research how to get command line arguments from a user
     - [x] with `sys.argv`
     - [x] with `argparse`
-    - [ ] with `click`
+    - [x] with `click`
+        - [x] try more options with `click` 
 
 Some basics functions which all CLIs have are:
 - An argument. (positional argument)
