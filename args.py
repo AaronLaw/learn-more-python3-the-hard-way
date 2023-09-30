@@ -2,7 +2,7 @@
 import sys
 from typing import List
 
-def with_argv():
+def with_argv() -> None:
     args: List = sys.argv
     print(args)
     print(f'The file itself is: {args[0]}')
@@ -11,7 +11,7 @@ def with_argv():
 # Here we use `argparse` to get argument from stdin
 import argparse
 
-def with_argparse():
+def with_argparse() -> None:
     parser = argparse.ArgumentParser(description="To sum up 2 numbers")
     parser.add_argument("-v", "--verbose", help="increase output verbosity",
                         action="store_true")
@@ -35,7 +35,7 @@ import click
 @click.argument("second", type=click.INT)
 @click.option("-v", "--verbose", is_flag=True, help="increase output verbosity")
 @click.option("-m",  "--mode", required=True, help="the calculation mode: add | sub | mul | div")
-def calculate(first, second, mode, verbose=False):
+def calculate(first: int, second: int, mode: str, verbose: bool=False) -> None:
     """An example cli created with Click to add 2 numbers."""
     if verbose:
         click.echo(f"this is from args: {first} {mode} {second}.")
@@ -52,16 +52,16 @@ def calculate(first, second, mode, verbose=False):
         case _:
             click.echo(f"please run the program againg with a calculation mode.")
 
-def add(first, second):
+def add(first: int, second: int) -> None:
     click.echo(first + second)
 
-def sub(first, second):
+def sub(first: int, second: int) -> None:
     click.echo(first - second)
 
-def mul(first, second):
+def mul(first: int, second: int) -> None:
     click.echo(first * second)
 
-def div(first, second):
+def div(first: int, second: int) -> None:
     try:
         click.echo(first / second)
     except ZeroDivisionError:
