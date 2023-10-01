@@ -34,6 +34,27 @@ reference:
     - Google: python click program description -> [The Definitive Guide to Python Click](https://www.assemblyai.com/blog/the-definitive-guide-to-python-click/#:~:text=Click%2C%20or%20“Command%20Line%20Interface,loading%20of%20subcommands%20at%20runtime.)
 - how to work with `*args` with Click?
     - Google: click *args -> [Variadic Arguments](https://click.palletsprojects.com/en/8.1.x/arguments/)
+- given a list of numbers. how to subtract from the 1st element, then 2nd element, then the nth element?
+    - poe: python doing subtraction in a list elements. from first element - second element - thrid element
+
+for doing subtraction elements in a list: (answered by poe)
+```python
+numbers = [10, 5, 3, 1]
+result = numbers[0]  # Set the initial result to the first element
+
+for i in range(1, len(numbers)):
+    result -= numbers[i]  # Subtract each subsequent element
+
+print(result)  # Output: 1
+```
+
+or 
+```python
+numbers = [10, 5, 3, 1]
+result = numbers[0] - sum(numbers[1:])
+
+print(result)  # Output: 1
+```
 
 ### The concepts of click
 

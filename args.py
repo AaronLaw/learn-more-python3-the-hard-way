@@ -33,7 +33,6 @@ import click
 @click.argument('numbers', type=int, nargs=-1) # *args
 @click.option("-v", "--verbose", is_flag=True, help="increase output verbosity")
 @click.option("-m",  "--mode", required=True, help="the calculation mode: add | sub | mul | div")
-# def calculate(first: int, second: int, mode: str, verbose: bool=False) -> None:
 def calculate(numbers: tuple[int], mode: str, verbose: bool=False) -> None:
     """An example cli created with Click to + | - | * | / 2 or more numbers."""
     if verbose:
@@ -58,7 +57,10 @@ def add(numbers: tuple[int]) -> None:
     click.echo(sum)
 
 def sub(numbers: tuple[int]) -> None:
-    result = numbers[0]
+    """Subtract elements in a list of numbers.
+    Starting from the 1st elementt - 2nd element, then - 3rd element ... nth element
+    """
+    result = numbers[0] # set result to the 1st element
     for num in numbers:
         result -= num
     result += numbers[0]
