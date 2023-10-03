@@ -16,10 +16,18 @@ cat file1 file2 file3 >> outfile
 cat -n file
 """
 
-def cat():
-    with open('text.txt', 'rt') as f:
-        for line in f:
-            print(line)
+import click
+
+@click.command()
+@click.argument('filenames', nargs=-1, type=click.Path(exists=True))
+@click.option('-n', '--numbers', is_flag=True, help='Print line numbers')
+def cat(filenames, numbers):
+    """Print and concatnate files.
+    """
+    for filename in filenames:
+        with open(filename, 'r') as file:
+            contents = file.read()
+            click.echo(contents)
 
 if __name__=="__main__":
     cat()
