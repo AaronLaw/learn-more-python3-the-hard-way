@@ -17,11 +17,12 @@ cat -n file
 """
 
 import click
+from typing import Union, Any, Optional
 
 @click.command()
 @click.argument('filenames', nargs=-1, type=click.Path(exists=True))
 @click.option('-n', '--numbers', is_flag=True, help='Print line numbers')
-def cat(filenames, numbers):
+def cat(filenames: click.Path, numbers: bool) -> None:
     """Print and concatnate files.
     """
     for filename in filenames:
