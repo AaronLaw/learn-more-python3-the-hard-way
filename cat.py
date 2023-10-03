@@ -25,12 +25,14 @@ from typing import Union, Any, Optional
 def cat(filenames: click.Path, numbers: bool) -> None:
     """Print and concatnate files.
     """
+    line_number = 1
     for filename in filenames:
         with open(filename, 'r') as file:
             lines = file.readlines()
             if numbers:
-                for i, line in enumerate(lines, start=1):
-                    click.echo(f"{i}\t {line}", nl=False)
+                for line in lines:
+                    click.echo(f"{line_number}\t {line}", nl=False)
+                    line_number += 1
             else:
                 click.echo(''.join(lines))
 
