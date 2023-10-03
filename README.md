@@ -75,6 +75,10 @@ Finding out what blocks me to work on:
 
 ## cat
 
+Click turns Python function into Command.
+What if I write the `cat` as a class?
+
+- [x] make it as class
 
 ### Reflection
 

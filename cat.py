@@ -25,16 +25,25 @@ from typing import Union, Any, Optional
 def cat(filenames: click.Path, numbers: bool) -> None:
     """Print and concatnate files.
     """
-    line_number = 1
-    for filename in filenames:
-        with open(filename, 'r') as file:
-            lines = file.readlines()
-            if numbers:
-                for line in lines:
-                    click.echo(f"{line_number}\t {line}", nl=False)
-                    line_number += 1
-            else:
-                click.echo(''.join(lines))
+    Cat(filenames, numbers).execute()
+
+class Cat:
+    def __init__(self, filenames, numbers):
+        self.filenames: tuple[click.Path] = filenames
+        self.numbers: bool = numbers
+        self.line_number: int = 1
+
+    def execute(self) -> None:
+        for filename in self.filenames:
+            with open(filename, 'r') as file:
+                lines = file.readlines()
+                if self.numbers:
+                    for line in lines:
+                        click.echo(f"{self.line_number}\t {line}", nl=False)
+                        self.line_number += 1
+                else:
+                    click.echo(''.join(lines))
+                    
 
 if __name__=="__main__":
     cat()
