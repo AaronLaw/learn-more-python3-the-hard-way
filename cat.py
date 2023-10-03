@@ -26,8 +26,13 @@ def cat(filenames, numbers):
     """
     for filename in filenames:
         with open(filename, 'r') as file:
-            contents = file.read()
-            click.echo(contents)
+            if numbers:
+                lines = file.readlines()
+                for i, line in enumerate(lines, start=1):
+                    click.echo(f"{i}\t {line}", nl=False)
+            else:
+                contents = file.read()
+                click.echo(contents)
 
 if __name__=="__main__":
     cat()
