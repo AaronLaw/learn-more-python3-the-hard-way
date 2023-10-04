@@ -33,14 +33,12 @@ class Find:
         self.type: str = type
 
     def execute(self) -> None:
-        start_path = Path(self.path)
-        
         # here we dispatch the task
         if self.filename and not self.type:
             self.name_find()
         elif self.type:
             self.type_find()
-            
+
     def check_required(self, filename: str, type: str) -> None:
         """Check if parameters meet program running requirement.
         if not, exit the program.
