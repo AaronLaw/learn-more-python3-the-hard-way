@@ -55,11 +55,12 @@ class Find:
         self.check_type()
 
         for item in self.path.rglob(self.filename):
-            if self.type == 'd' and item.is_dir():
-                print(item)
-            elif self.type == 'f' and item.is_file():
-                print(item)
-    
+            if self.type == 'd' and not item.is_dir():
+                continue
+            elif self.type == 'f' and not item.is_file():
+                continue
+            print(item)
+            
     def check_type(self) -> None:
         if self.type not in ['d', 'f']:
             print(f"Unknow type: {self.type}")
