@@ -100,3 +100,18 @@ Give it a path, `glob` lists all files & directory in the path (a.k.a. 1 level) 
 reference:
 - How to Get a List of All Files in a Directory With Python
     - [How to Get a List of All Files in a Directory With Python – Real Python](https://realpython.com/get-all-files-in-directory-python/)
+
+### Reflection
+
+Finding out what blocks me to work on:
+from confusion => understanding
+
+1. At 1st, I confuse on the implementation and go to see the "model answer" [^1] from the author (a.k.a. the code on Github)
+    1. I try to figure out the logic & data flow of the code, and then I still feeling of confusion
+    2. Then I write a backbone / the basic structure of the `find` command in OOP style: hope to help me less confuse and it doesn't
+2. I re-read the question again and again from the webpage [^2]. It actually help me less confusion
+    1. I use my own word to re-write the question / the requirement as a main sentence, and followed a list of [x] as sub-tasks.
+    2. This help me understand what should I do, and what I am going to implement (a main theme and sub-tasks)
+
+[^1]: https://github.com/zedshaw/learn-more-python-the-hard-way-solutions
+[^2]: https://learncodethehardway.org/more-python-book/ex6.html
