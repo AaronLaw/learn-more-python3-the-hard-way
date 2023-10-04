@@ -115,3 +115,7 @@ from confusion => understanding
 
 [^1]: https://github.com/zedshaw/learn-more-python-the-hard-way-solutions
 [^2]: https://learncodethehardway.org/more-python-book/ex6.html
+
+### After work hints
+
+- poe: can you implement linux's find in python? with the use of Pathlib and Click. make it class.
