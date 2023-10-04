@@ -83,3 +83,20 @@ What if I write the `cat` as a class?
 ### Reflection
 
 Finding out what blocks me to work on:
+
+## find
+
+`find` has lots of parameters, and here I go to implement the following features:
+- [x] given `.` or some path (e.g. /usr/local/)
+- [x] a filter: e.g. `-name` or `-type d` (file of directory type)
+- [x] the operation on each matching file: `-print`
+
+A simple test case is to find the files with `.txt` in the current directory and print them out: `find -name "*.txt" -print`
+
+### `glob`
+
+Give it a path, `glob` lists all files & directory in the path (a.k.a. 1 level) while `rglob` does it recursively.
+
+reference:
+- How to Get a List of All Files in a Directory With Python
+    - [How to Get a List of All Files in a Directory With Python – Real Python](https://realpython.com/get-all-files-in-directory-python/)
