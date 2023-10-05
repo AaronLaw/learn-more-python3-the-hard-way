@@ -71,23 +71,16 @@ class ReturnFind(Find):
     """An implementation of `find` with return.
     """
     def execute(self) -> List[Path]:
-        # paths = []
         # here we dispatch the task
         if self.filename and not self.type:
             paths = self.name_find()
-            # paths = [item for item in self.name_find()]
         elif self.type:
             paths = self.type_find()
-            # paths = [item for item in self.type_find()]
         return paths
 
-    def name_find(self) -> Path:
-        paths = []
-        for item in self.path.rglob(self.filename):
-            # print(item)
-            paths.append(item)
-        return paths
-            
+    def name_find(self) -> List[Path]:
+        return [item for item in self.path.rglob(self.filename)]
+
     def type_find(self) -> List[Path]:
         self.check_type()
         paths = []
@@ -97,6 +90,5 @@ class ReturnFind(Find):
                 continue
             elif self.type == 'f' and not item.is_file():
                 continue
-            # print(item)
             paths.append(item)
         return paths
