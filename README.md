@@ -119,3 +119,35 @@ from confusion => understanding
 ### After work hints
 
 - poe: can you implement linux's find in python? with the use of Pathlib and Click. make it class.
+
+
+## BookmarkToMarkdown
+
+Problem statement:
+I use Linux as my daily driver, and sometimes I web surfing on a Windows machine and I have drop URLs as browser bookmark files (*.URL). I want to move these bookmark files in a managable formation. Make them all as one markdown file is good enough.
+
+
+reference:
+- python read file
+- python read the second line of a file -> https://pynative.com/python-read-specific-lines-from-a-file/
+- python remove '\n' from readlines -> https://stackoverflow.com/questions/15233340/getting-rid-of-n-when-using-readlines
+- python remove first few characters of readlines -> https://stackoverflow.com/questions/18924761/remove-first-char-from-each-line-in-a-text-file
+
+To handle line element in a file (code in function `BookmarkToMarkdown.get_url`):
+
+To assign the 2nd line to url
+```python
+url = file.readlines()[1]
+```
+To assign the 2nd~4th line to url
+```python
+url = file.readlines()[1:3]
+```
+To remove the ending `\n` of a line
+```python
+url = file.readlines()[1].rstrip()
+```
+ To remove the first 4 characters, which are "URL="
+```python
+url = file.readlines()[1].rstrip()[4:]
+```
