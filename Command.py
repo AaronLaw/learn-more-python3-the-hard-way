@@ -56,7 +56,7 @@ class Find:
         for item in self.path.rglob(self.filename):
             print(item)
             paths.append(item)
-        return item
+        return paths
             
     def type_find(self) -> List[Path]:
         self.check_type()
