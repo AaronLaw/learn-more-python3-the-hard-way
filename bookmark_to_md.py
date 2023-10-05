@@ -2,12 +2,14 @@ from pathlib import Path
 from Command import ReturnFind
 
 class BookmarkToMarkdown:
-    def __init__(self, path, fetch_line_number, extension):
+    def __init__(self, path, fetch_line_number, extension, out_file):
         self.path = Path(path)
         self.line_number = fetch_line_number
         self.extension = extension
+        self.out_file = out_file
 
         self.find = ReturnFind(self.path, self.extension, 'f')
+        self. entries = []
 
     def execute(self) -> None:
         # get all the files ending '.url' in a directory
@@ -25,8 +27,10 @@ class BookmarkToMarkdown:
             stem: str = self.get_filename(item)
             contents: List[str] = self.get_contents(item)
             url: str = self.get_url(contents)
-            print(f"- [{stem}]({url})")
-            # self.write_markdown()
+            entry: str = self.format_as_markdown(stem, url)
+            self.entries.append(entry)
+        self.write_file()
+
 
     def get_filename(self, path) -> str:
         """Return the filename part from a Path.
@@ -45,13 +49,18 @@ class BookmarkToMarkdown:
         url = lines[self.line_number-1].rstrip()[4:]
         return url
 
-    def write_markdown(self) -> None:
-        pass
+    def format_as_markdown(self, link_text, url) -> str:
+        return f"- [{link_text}]({url})"
+
+    def write_file(self) -> None:
+        with open(self.out_file, 'w') as f:
+            f.writelines(self.entries)
 
 
 if __name__=="__main__":
     path = '/home/aaron/Music/reload/'
     fetch_line_number = 2
     file_end = "*.URL"
+    out_filename = "bookmarks.md"
 
-    BookmarkToMarkdown(path, fetch_line_number, file_end).execute()
+    BookmarkToMarkdown(path, fetch_line_number, file_end, out_filename).execute()
