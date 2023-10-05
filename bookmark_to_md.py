@@ -27,7 +27,7 @@ class BookmarkToMarkdown:
             stem: str = self.get_filename(item)
             contents: List[str] = self.get_contents(item)
             url: str = self.get_url(contents)
-            entry: str = self.format_as_markdown(stem, url)
+            entry: str = self.format_as_markdown(stem, url, line_break=True)
             self.entries.append(entry)
         self.write_file()
 
@@ -49,7 +49,9 @@ class BookmarkToMarkdown:
         url = lines[self.line_number-1].rstrip()[4:]
         return url
 
-    def format_as_markdown(self, link_text, url) -> str:
+    def format_as_markdown(self, link_text, url, line_break: bool = False) -> str:
+        if line_break:
+            return f"- [{link_text}]({url})\n"
         return f"- [{link_text}]({url})"
 
     def write_file(self) -> None:
