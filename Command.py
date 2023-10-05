@@ -36,11 +36,11 @@ class Find:
         # paths = []
         # here we dispatch the task
         if self.filename and not self.type:
-            # self.name_find()
-            paths = [item for item in self.name_find()]
+            paths = self.name_find()
+            # paths = [item for item in self.name_find()]
         elif self.type:
-            # self.type_find()
-            paths = [item for item in self.type_find()]
+            paths = self.type_find()
+            # paths = [item for item in self.type_find()]
         return paths
 
     def check_required(self, filename: str, type: str) -> None:
