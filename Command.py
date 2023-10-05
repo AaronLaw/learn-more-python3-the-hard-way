@@ -1,6 +1,6 @@
 from pathlib import Path
 import sys
-from typing import Union, Any, Optional
+from typing import List, Union, Any, Optional
 
 import click
 
@@ -23,7 +23,7 @@ class Cat:
 
 
 class Find:
-    """An implementation of `find`.
+    """An implementation of `find` with return.
     """
     def __init__(self, path: str, filename: str, type: str) -> None:
         self.check_required(filename, type)
@@ -32,12 +32,16 @@ class Find:
         self.filename: str = filename
         self.type: str = type
 
-    def execute(self) -> None:
+    def execute(self) -> List[Path]:
+        # paths = []
         # here we dispatch the task
         if self.filename and not self.type:
-            self.name_find()
+            # self.name_find()
+            paths = [item for item in self.name_find()]
         elif self.type:
-            self.type_find()
+            # self.type_find()
+            paths = [item for item in self.type_find()]
+        return paths
 
     def check_required(self, filename: str, type: str) -> None:
         """Check if parameters meet program running requirement.
@@ -47,12 +51,16 @@ class Find:
             print(f"You need either -name or -type")
             sys.exit(1)
     
-    def name_find(self) -> None:
+    def name_find(self) -> Path:
+        paths = []
         for item in self.path.rglob(self.filename):
             print(item)
+            paths.append(item)
+        return item
             
-    def type_find(self) -> None:
+    def type_find(self) -> List[Path]:
         self.check_type()
+        paths = []
 
         for item in self.path.rglob(self.filename):
             if self.type == 'd' and not item.is_dir():
@@ -60,7 +68,9 @@ class Find:
             elif self.type == 'f' and not item.is_file():
                 continue
             print(item)
-            
+            paths.append(item)
+        return paths
+
     def check_type(self) -> None:
         if self.type not in ['d', 'f']:
             print(f"Unknow type: {self.type}")

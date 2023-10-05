@@ -13,7 +13,7 @@ def bookmark_to_md(path):
         find = Find(path, '*.URL', 'f')
         bookmark_list = find.execute()
         for item in bookmark_list:
-            print((item))
+            print(type(item))
 
 if __name__=="__main__":
     path = '/home/aaron/Music/reload/'
