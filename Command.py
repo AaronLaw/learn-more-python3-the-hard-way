@@ -23,7 +23,7 @@ class Cat:
 
 
 class Find:
-    """An implementation of `find` with return.
+    """An implementation of `find`.
     """
     def __init__(self, path: str, filename: str, type: str) -> None:
         self.check_required(filename, type)
@@ -32,6 +32,44 @@ class Find:
         self.filename: str = filename
         self.type: str = type
 
+    def execute(self) -> None:
+        # here we dispatch the task
+        if self.filename and not self.type:
+            self.name_find()
+        elif self.type:
+            self.type_find()
+
+    def check_required(self, filename: str, type: str) -> None:
+        """Check if parameters meet program running requirement.
+        if not, exit the program.
+        """
+        if not filename and not type:
+            print(f"You need either -name or -type")
+            sys.exit(1)
+    
+    def name_find(self) -> None:
+        for item in self.path.rglob(self.filename):
+            print(item)
+            
+    def type_find(self) -> None:
+        self.check_type()
+
+        for item in self.path.rglob(self.filename):
+            if self.type == 'd' and not item.is_dir():
+                continue
+            elif self.type == 'f' and not item.is_file():
+                continue
+            print(item)
+            
+    def check_type(self) -> None:
+        if self.type not in ['d', 'f']:
+            print(f"Unknow type: {self.type}")
+            sys.exit(1)
+
+
+class ReturnFind(Find):
+    """An implementation of `find` with return.
+    """
     def execute(self) -> List[Path]:
         # paths = []
         # here we dispatch the task
@@ -43,18 +81,10 @@ class Find:
             # paths = [item for item in self.type_find()]
         return paths
 
-    def check_required(self, filename: str, type: str) -> None:
-        """Check if parameters meet program running requirement.
-        if not, exit the program.
-        """
-        if not filename and not type:
-            print(f"You need either -name or -type")
-            sys.exit(1)
-    
     def name_find(self) -> Path:
         paths = []
         for item in self.path.rglob(self.filename):
-            print(item)
+            # print(item)
             paths.append(item)
         return paths
             
@@ -67,11 +97,6 @@ class Find:
                 continue
             elif self.type == 'f' and not item.is_file():
                 continue
-            print(item)
+            # print(item)
             paths.append(item)
         return paths
-
-    def check_type(self) -> None:
-        if self.type not in ['d', 'f']:
-            print(f"Unknow type: {self.type}")
-            sys.exit(1)

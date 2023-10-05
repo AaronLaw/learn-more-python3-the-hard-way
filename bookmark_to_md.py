@@ -1,5 +1,5 @@
 from pathlib import Path
-from Command import Find
+from Command import ReturnFind
 
 class BookmarkToMarkdown:
     def __init__(self, path, fetch_line_number, extension):
@@ -7,7 +7,7 @@ class BookmarkToMarkdown:
         self.line_number = fetch_line_number
         self.extension = extension
 
-        self.find = Find(self.path, self.extension, 'f')
+        self.find = ReturnFind(self.path, self.extension, 'f')
 
     def execute(self) -> None:
         # get all the files ending '.url' in a directory
