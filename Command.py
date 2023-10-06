@@ -102,7 +102,7 @@ class BookmarkToMarkdown:
         self.out_file = out_file
 
         self.find = ReturnFind(self.path, self.extension, 'f')
-        self. entries = []
+        self.entries = []
 
     def execute(self) -> None:
         # get all the files ending '.url' in a directory
