@@ -99,7 +99,7 @@ class BookmarkToMarkdown:
         self.path = Path(path)
         self.line_number = fetch_line_number
         self.extension = extension
-        self.out_file = out_file
+        self.out_file = Path(out_file)
 
         self.find = ReturnFind(self.path, self.extension, 'f')
         self.entries = []
