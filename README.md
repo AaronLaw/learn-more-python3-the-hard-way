@@ -126,8 +126,22 @@ from confusion => understanding
 Problem statement:
 I use Linux as my daily driver, and sometimes I web surfing on a Windows machine and I have drop URLs as browser bookmark files (*.URL). I want to move these bookmark files in a managable formation. Make them all as one markdown file is good enough.
 
+### Design: About the logic behind BookmarkToMarkdown.check_output_exist()
 
-reference:
+list out possible cases in plain Englist first:
+- file: bool
+- over_write: bool
+
+```markdown
+if file not exists => no exit()
+if over_write == True => no exit()
+if file exists -> can or cannot overwite it? => it depends on a flag (over_write)
+    if file exists AND over_write == False => exit()
+    if file exists AND over_write == True => no exit()
+```
+
+
+### reference:
 - python read file
 - python read the second line of a file -> https://pynative.com/python-read-specific-lines-from-a-file/
 - python remove '\n' from readlines -> https://stackoverflow.com/questions/15233340/getting-rid-of-n-when-using-readlines

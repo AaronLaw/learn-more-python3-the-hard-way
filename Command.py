@@ -95,17 +95,19 @@ class ReturnFind(Find):
 
 
 class BookmarkToMarkdown:
-    def __init__(self, path, fetch_line_number, extension, out_file):
+    def __init__(self, path, fetch_line_number, extension, out_file, over_write):
         self.path = Path(path)
         self.line_number = fetch_line_number
         self.extension = extension
         self.out_file = Path(out_file)
+        self.over_write  = over_write
 
         self.find = ReturnFind(self.path, self.extension, 'f')
         self.entries = []
 
     def execute(self) -> None:
         # get all the files ending '.url' in a directory
+        self.check_output_exist()
 
         # process them one by one
             # get the filename
@@ -150,3 +152,14 @@ class BookmarkToMarkdown:
     def write_file(self) -> None:
         with open(self.out_file, 'w') as f:
             f.writelines(self.entries)
+        print(f"{self.extension} has been written into {self.out_file} successfully.")
+
+    def check_output_exist(self) -> None:
+        """Handle the case where output file exist.
+        
+        If output file exists and over-write is not allowed
+        then exit.
+        """
+        if Path.exists(self.out_file) and not self.over_write:
+            print(f"{self.out_file} exists: No over-write.")
+            sys.exit(1)
