@@ -165,3 +165,72 @@ url = file.readlines()[1].rstrip()
 ```python
 url = file.readlines()[1].rstrip()[4:]
 ```
+
+#### About sort entries by mtime
+(not yet implement)
+I need it because entry's mtime work as a record of context (which entry I find first and which is the second...)
+
+- the result list is sorted by a-z. I would like to keep the order by modification time
+    - Google: pathlib glob sort by modified date
+        - -> https://www.geeksforgeeks.org/get-sorted-file-names-from-a-directory-by-creation-date-in-python/
+        - -> [Sort files after glob in Pathlib _ madflex](https://madflex.de/sort-files-after-glob-in-pathlib/)
+
+```python
+files.sort(key=os.path.getctime)
+```
+
+```python
+>>> from pathlib import Path
+>>>
+>>> # this returns an unordered list - not helpful here
+>>> list(Path(".").glob("**/*SCD30.csv"))[0]
+PosixPath('2021/07/24/2021-07-24_SCD30.csv')
+>>>
+>>> # sorted sorts by folder/filename. this works fine if the filenames are sortable
+>>> sorted(Path(".").glob("**/*SCD30.csv"))[-1]
+PosixPath('2022/02/09/2022-02-09_SCD30.csv')
+>>>
+>>> # reverse the sorting to get the newest on top
+>>> sorted(Path(".").glob("**/*SCD30.csv"), reverse=True)[0]
+PosixPath('2022/02/09/2022-02-09_SCD30.csv')
+>>>
+>>> # sort by modified and get the newest first
+>>> sorted(Path(".").glob("**/*SCD30.csv"), key=lambda x: x.stat().st_mtime, reverse=True)[0]
+PosixPath('2022/02/09/2022-02-09_SCD30.csv')
+```
+(however, I haven't figured out how to implement this function in my code...)
+```python
+    def sorted_paths(self, paths: List[Path]):
+        sorted(paths, key=lambda x: x.stat().st_mtime, reverse=True )
+```
+
+#### not yet sorted by mtime => show the mtime as additional information on each entry
+and then I might sort entries with Vim.
+
+- how to find mtime with pathlib?
+    - python pathlib stat() -> https://docs.python.org/zh-cn/3/library/pathlib.html
+https://www.geeksforgeeks.org/get-sorted-file-names-from-a-directory-by-creation-date-in-python/
+- how to convert timestamp to datetime object?
+    - python pathlib stat() -> [Get file timestamp in Python (os.stat, os.path.getmtime, and more) _ note.nkmk.me](https://note.nkmk.me/en/python-os-stat-file-timestamp/)
+
+```python
+    def get_modify_datetime(self, path) -> datetime:
+        """Get the st_mtime of a Path.
+        """
+        epoch_time = Path(path).stat().st_mtime
+        date_time = datetime.datetime.fromtimestamp(epoch_time)
+        return date_time.isoformat(timespec='seconds')
+```
+
+- how to format a datetime object?
+    - 2019-11-22: Google: python rename -> Google: python3 遍历重命名文件 -> [13.9 通过文件名查找文件 - python 3-cookbook 3.0.0文档](https://python3-cookbook.readthedocs.io/zh_CN/latest/c13/p09_find_files_by_name.html) , [Python文件操作，看这篇就足够](https://juejin.im/post/5c57afb1f265da2dda6924a1) = https://juejin.cn/post/6844903774134206472 -> [datetime — Basic date and time types — Python 3.12.0 documentation](https://docs.python.org/3/library/datetime.html#strftime-and-strptime-behavior), [Python strftime reference cheatsheet](https://strftime.org)
+
+```python
+    def get_modify_datetime(self, path) -> datetime:
+        """Get the st_mtime of a Path.
+        """
+        epoch_time = Path(path).stat().st_mtime
+        date_time = datetime.datetime.fromtimestamp(epoch_time)
+        format='%Y-%m'
+        return date_time.strftime(format)
+```

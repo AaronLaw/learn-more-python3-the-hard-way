@@ -1,5 +1,6 @@
 from pathlib import Path
 import sys
+import datetime
 from typing import List, Union, Any, Optional
 
 import click
@@ -95,12 +96,20 @@ class ReturnFind(Find):
 
 
 class BookmarkToMarkdown:
-    def __init__(self, path, fetch_line_number, extension, out_file, over_write):
+    """Convert bookmark file (drops on Windows) into one markdown file.
+
+    reserve information:
+        - filename
+        - URL
+        - st_mtime
+    """
+    def __init__(self, path, fetch_line_number, extension, out_file, over_write, mtime):
         self.path = Path(path)
         self.line_number = fetch_line_number
         self.extension = extension
         self.out_file = Path(out_file)
         self.over_write  = over_write
+        self.mtime: bool = mtime
 
         self.find = ReturnFind(self.path, self.extension, 'f')
         self.entries = []
@@ -122,7 +131,11 @@ class BookmarkToMarkdown:
             stem: str = self.get_filename(item)
             contents: List[str] = self.get_contents(item)
             url: str = self.get_url(contents)
-            entry: str = self.format_as_markdown(stem, url, line_break=True)
+            if self.mtime:
+                mtime: datetime.datetime = self.get_modify_datetime(item)
+                entry: str = self.format_as_markdown_with_mtime(stem, url, mtime,line_break=True)
+            else:
+                entry: str = self.format_as_markdown(stem, url, line_break=True)
             self.entries.append(entry)
         self.write_file()
 
@@ -148,6 +161,11 @@ class BookmarkToMarkdown:
         if line_break:
             return f"- [{link_text}]({url})\n"
         return f"- [{link_text}]({url})"
+    
+    def format_as_markdown_with_mtime(self, link_text, url, mtime, line_break: bool = False) -> str:
+        if line_break:
+            return f"- {mtime} - [{link_text}]({url})\n"
+        return f"- {mtime} - [{link_text}]({url})"
 
     def write_file(self) -> None:
         with open(self.out_file, 'w') as f:
@@ -163,3 +181,12 @@ class BookmarkToMarkdown:
         if Path.exists(self.out_file) and not self.over_write:
             print(f"{self.out_file} exists: No over-write.")
             sys.exit(1)
+
+    def get_modify_datetime(self, path) -> datetime.datetime:
+        """Get the st_mtime of a Path.
+        """
+        epoch_time = Path(path).stat().st_mtime
+        date_time = datetime.datetime.fromtimestamp(epoch_time)
+
+        format='%Y-%m-%d %H:%M:%S'
+        return date_time.strftime(format)
