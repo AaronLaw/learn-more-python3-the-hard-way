@@ -130,7 +130,8 @@ class BookmarkToMarkdown:
             # print(type(item))
             stem: str = self.get_filename(item)
             contents: List[str] = self.get_contents(item)
-            url: str = self.get_url(contents)
+            line: str = self.get_line(contents)
+            url: str = self.get_line(line)
             if self.mtime:
                 mtime: datetime.datetime = self.get_modify_datetime(item)
                 entry: str = self.format_as_markdown_with_mtime(stem, url, mtime,line_break=True)
@@ -151,11 +152,16 @@ class BookmarkToMarkdown:
         with open(path, 'r') as file:
             return file.readlines()
 
-    def get_url(self, lines) -> str:
-        """Given a content and return a line.
+    def get_line(self, lines: List[str]) -> str:
+        """Given a list of contents and return a line.
         """
-        url = lines[self.line_number-1].rstrip()[4:]
-        return url
+        line = lines[self.line_number-1]
+        return line
+    
+    def get_url(self, line) -> str:
+        """pick the part which is URL from a string.
+        """
+        return line.rstrip()[4:]
 
     def format_as_markdown(self, link_text, url, line_break: bool = False) -> str:
         if line_break:
