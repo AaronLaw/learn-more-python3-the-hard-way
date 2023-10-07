@@ -234,3 +234,26 @@ https://www.geeksforgeeks.org/get-sorted-file-names-from-a-directory-by-creation
         format='%Y-%m'
         return date_time.strftime(format)
 ```
+#### Sort in Vim
+
+- how to sort the entries after getting modify time
+- how to sort by column in Vim?
+    - vim sort -> [Sort lines _ Vim Tips Wiki _ Fandom](https://vim.fandom.com/wiki/Sort_lines)
+    - vim sort lines by column -> [Sort lines based on a column in Vim_Nvim - jdhao's digital space](https://jdhao.github.io/2021/12/21/sort_lines_based_on_a_column_nvim/), [Sorting columns of text in Vim using sort _ Jordan Elver _ Ruby on Rails Developer, Bristol, UK](https://jordanelver.co.uk/blog/2014/03/12/sorting-columnds-of-text-in-vim-using-sort/)
+    
+```vim
+:sort # asc
+:sort! # desc / reverse sort
+```
+
+To sort the text by the total number of documents in the collection, I did this.
+```vim
+:%!sort -k2nr
+```
+This sorted by the second column (-k2), treats the text as a number (n) and then sorts in reverse (r), which results in.
+
+Then, I sort by the the 4th column (-k4), followed by the 3rd column, but this time we require a few more switches. We ignore leading blank spaces (b), and this time we sort using a general numeric sort (g).
+```vim
+:%!sort -k4 -bk3g
+```
+    
