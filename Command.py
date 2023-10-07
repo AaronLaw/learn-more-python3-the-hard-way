@@ -103,20 +103,22 @@ class BookmarkToMarkdown:
         - URL
         - st_mtime
     """
-    def __init__(self, path, fetch_line_number, extension, out_file, over_write, mtime):
+    def __init__(self, path: str, fetch_line_number: int, extension: str,
+                 out_file: str, over_write: bool, mtime: bool):
         self.path = Path(path)
         self.line_number = fetch_line_number
         self.extension = extension
         self.out_file = Path(out_file)
         self.over_write  = over_write
-        self.mtime: bool = mtime
+        self.mtime = mtime
 
         self.find = ReturnFind(self.path, self.extension, 'f')
         self.entries = []
 
     def execute(self) -> None:
-        # get all the files ending '.url' in a directory
         self.check_output_exist()
+        # get all the files ending '.url' in a directory
+        bookmark_list: List[Path] = self.find.execute()
 
         # process them one by one
             # get the filename
@@ -125,7 +127,6 @@ class BookmarkToMarkdown:
             # open a new file
             # write in [{filename}]({URL}) format, as markdown syntax
             # write chuck of data into file
-        bookmark_list: List[Path] = self.find.execute()
         for item in bookmark_list:
             # print(type(item))
             stem: str = self.get_filename(item)
@@ -141,12 +142,12 @@ class BookmarkToMarkdown:
         self.write_file()
 
 
-    def get_filename(self, path) -> str:
+    def get_filename(self, path: str) -> str:
         """Return the filename part from a Path.
         """
         return path.stem
 
-    def get_contents(self, path) -> list[str]:
+    def get_contents(self, path: str) -> list[str]:
         """Given a path and return its contents.
         """
         with open(path, 'r') as file:
@@ -158,22 +159,24 @@ class BookmarkToMarkdown:
         line = lines[self.line_number-1]
         return line
     
-    def get_url(self, line) -> str:
-        """pick the part which is URL from a string.
+    def get_url(self, line: str) -> str:
+        """Pick the part which is URL from a string.
         """
         return line.rstrip()[4:]
 
-    def format_as_markdown(self, link_text, url, line_break: bool = False) -> str:
+    def format_as_markdown(self, link_text: str, url: str, line_break: bool=False) -> str:
         if line_break:
             return f"- [{link_text}]({url})\n"
         return f"- [{link_text}]({url})"
     
-    def format_as_markdown_with_mtime(self, link_text, url, mtime, line_break: bool = False) -> str:
+    def format_as_markdown_with_mtime(self, link_text: str, url: str, mtime: str, line_break: bool=False) -> str:
         if line_break:
             return f"- {mtime} - [{link_text}]({url})\n"
         return f"- {mtime} - [{link_text}]({url})"
 
     def write_file(self) -> None:
+        """Write entries of link in markdown format ot a file.
+        """
         with open(self.out_file, 'w') as f:
             f.writelines(self.entries)
         print(f"{self.extension} has been written into {self.out_file} successfully.")
@@ -188,7 +191,7 @@ class BookmarkToMarkdown:
             print(f"{self.out_file} exists: No over-write.")
             sys.exit(1)
 
-    def get_modify_datetime(self, path) -> datetime.datetime:
+    def get_modify_datetime(self, path: str) -> datetime.datetime:
         """Get the st_mtime of a Path.
         """
         epoch_time = Path(path).stat().st_mtime

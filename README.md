@@ -126,6 +126,10 @@ from confusion => understanding
 Problem statement:
 I use Linux as my daily driver, and sometimes I web surfing on a Windows machine and I have drop URLs as browser bookmark files (*.URL). I want to move these bookmark files in a managable formation. Make them all as one markdown file is good enough.
 
+### Design
+
+BookmarkToMarkdown has a ReturnFind.
+
 ### Design: About the logic behind BookmarkToMarkdown.check_output_exist()
 
 list out possible cases in plain Englist first:
@@ -142,6 +146,9 @@ if file exists -> can or cannot overwite it? => it depends on a flag (over_write
 
 
 ### reference:
+
+#### About read file
+
 - python read file
 - python read the second line of a file -> https://pynative.com/python-read-specific-lines-from-a-file/
 - python remove '\n' from readlines -> https://stackoverflow.com/questions/15233340/getting-rid-of-n-when-using-readlines
@@ -168,6 +175,7 @@ url = file.readlines()[1].rstrip()[4:]
 
 #### About sort entries by mtime
 (not yet implement)
+
 I need it because entry's mtime work as a record of context (which entry I find first and which is the second...)
 
 - the result list is sorted by a-z. I would like to keep the order by modification time
