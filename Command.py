@@ -132,7 +132,7 @@ class BookmarkToMarkdown:
             stem: str = self.get_filename(item)
             contents: List[str] = self.get_contents(item)
             line: str = self.get_line(contents)
-            url: str = self.get_line(line)
+            url: str = self.get_url(line)
             if self.mtime:
                 mtime: datetime.datetime = self.get_modify_datetime(item)
                 entry: str = self.format_as_markdown_with_mtime(stem, url, mtime,line_break=True)
